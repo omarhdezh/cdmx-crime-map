@@ -1,0 +1,16 @@
+node_modules/
+dist/
+build/
+.env
+*.log
+node_modules/
+dist/
+build/
+.env
+*.log
+mapa-delitos/node_modules/
+mapa-delitos/public/colonias.json
+screenshots/
+.DS_Store
+__pycache__/
+*.pyc

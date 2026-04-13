@@ -1,0 +1,262 @@
+:root {
+  --primary: #2563eb;
+  --accent: #3b82f6;
+  --accent-hover: #2563eb;
+  --bg-color: #f8fafc;
+  --sidebar-bg: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --border-color: #e2e8f0;
+  --sidebar-width: 340px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--bg-color);
+  position: relative;
+}
+
+/* Response Sidebar */
+.sidebar {
+  width: var(--sidebar-width);
+  height: 100%;
+  padding: 24px;
+  border-right: 1px solid var(--border-color);
+  background: var(--sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 10px 0 15px -3px rgba(0, 0, 0, 0.05);
+  z-index: 2000;
+  transition: transform 0.3s ease-in-out;
+  overflow-y: auto;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  background: linear-gradient(to right, #1e40af, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 2px;
+}
+
+.label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.select-control {
+  width: 100%;
+  padding: 8px 12px;
+  background-color: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 14px;
+  cursor: pointer;
+}
+
+.stat-card {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 12px 16px;
+  position: relative;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 2px;
+}
+
+/* Fluid Typography for the Total Count */
+.stat-value {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.stat-value.loading {
+  animation: pulse 1.5s infinite;
+  color: var(--text-secondary);
+}
+
+.legend-container {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.legend-container::-webkit-scrollbar {
+  width: 4px;
+}
+.legend-container::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+.footer-info {
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+  padding-top: 12px;
+  border-top: 1px solid var(--border-color);
+}
+
+.mobile-toggle {
+  display: none;
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 3000;
+  background: white;
+  border: 1px solid var(--border-color);
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .sidebar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translateX(-100%);
+    width: 280px;
+    box-shadow: 15px 0 30px rgba(0,0,0,0.15);
+  }
+
+  .sidebar.visible {
+    transform: translateX(0);
+  }
+
+  .mobile-toggle {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 85%;
+  }
+}
+
+.map-container {
+  flex: 1;
+  height: 100vh;
+  z-index: 1;
+}
+
+/* Customizing Leaflet styling tweaks */
+.leaflet-container {
+  background: #f1f5f9 !important;
+}
+
+.alcaldia-tooltip {
+  background: #ffffff !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 12px !important;
+  color: var(--text-primary) !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+  padding: 10px 14px !important;
+  font-size: 13px !important;
+}
+.alcaldia-tooltip::before {
+  display: none !important;
+}
+
+
+/* --- TOOLTIP DEFINITIVO Y ULTRA-VISIBLE --- */
+.info-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: help;
+  position: relative;
+  margin-left: 6px;
+  background: rgba(0,0,0,0.05);
+  color: inherit;
+  user-select: none;
+}
+
+/* El cuadro del mensaje */
+.info-icon::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 150%; /* Siempre arriba del icono */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 240px;
+  background-color: #1e293b; /* Azul muy oscuro */
+  color: #ffffff;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  pointer-events: none;
+  display: none; /* Oculto por defecto */
+  z-index: 999999;
+  white-space: normal;
+}
+
+/* La flechita hacia abajo */
+.info-icon::before {
+  content: "";
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 8px solid transparent;
+  border-top-color: #1e293b;
+  display: none;
+  z-index: 999999;
+}
+
+/* ACTIVACIÓN AL PASAR EL MOUSE */
+.info-icon:hover::after,
+.info-icon:hover::before {
+  display: block;
+}
